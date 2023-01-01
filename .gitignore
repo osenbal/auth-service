@@ -1,0 +1,9 @@
+node_modules
+
+# output build
+lib
+dist
+
+# output test
+test
+coverage
