@@ -18,4 +18,17 @@ export class MongoDBUserDataSource implements UserDataSource {
     const result = await this.db.findOne({ email });
     return result !== null;
   }
+
+  async login(email: string, password: string): Promise<User> {
+    const result = await this.db.findOne({ email, password });
+    return result;
+  }
+
+  async validatePassword(email: string, password: string): Promise<boolean> {
+    const result = await this.db.findOne({ email });
+    if (result.password !== password) {
+      return false;
+    }
+    return true;
+  }
 }

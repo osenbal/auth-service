@@ -4,7 +4,7 @@ export class ResponseObj {
     this.body = body;
   }
 
-  static ok(message: string, body: any) {
+  static success(message: string, body: any) {
     return new ResponseObj(200, message, body);
   }
 

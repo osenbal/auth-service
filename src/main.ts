@@ -11,6 +11,7 @@ import { MongoDBUserDataSource } from "./data/data-sources/mongodb/mongodb-user-
 import HttpExceptionMiddleware from "./domain/middlewares/HttpExeption-midleware";
 import morgan from "morgan";
 import { logger, stream } from "./utils/logger";
+import { LoginUser } from "./domain/use-cases/user/login-user";
 
 async function getMongoDS() {
   const client: MongoClient = await MongoClient.connect(
@@ -44,7 +45,8 @@ async function getMongoDS() {
   const dataSource = await getMongoDS();
 
   const userMiddleware = AuthRouter(
-    new RegisterUser(new UserRepositoryImpl(dataSource))
+    new RegisterUser(new UserRepositoryImpl(dataSource)),
+    new LoginUser(new UserRepositoryImpl(dataSource))
   );
 
   // middlewares

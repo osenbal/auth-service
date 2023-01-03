@@ -16,4 +16,12 @@ export class UserRepositoryImpl implements UserRepository {
   async isEmailExist(email: string): Promise<boolean> {
     return await this.userDataSources.isEmailExist(email);
   }
+
+  async login(email: string, password: string): Promise<User> {
+    return await this.userDataSources.login(email, password);
+  }
+
+  async validatePassword(email: string, password: string): Promise<boolean> {
+    return await this.userDataSources.validatePassword(email, password);
+  }
 }
