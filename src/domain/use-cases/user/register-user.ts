@@ -1,11 +1,12 @@
 import { UserRepository } from "@domain/interfaces/repositories/user-repository";
 import { RegisterUserUseCase } from "@domain/interfaces/use-cases/register-user";
-import { HTTP400Error } from "../../exeptions/error-exeption";
+import { HTTP400Error, HTTP500Error } from "../../exeptions/error-exeption";
 import User, {
   checkRequiredInput,
   checkEmailStringFormat,
   checkPasswordStringFormat,
 } from "../../entities/user";
+import bcrypt from "bcrypt";
 
 export class RegisterUser implements RegisterUserUseCase {
   userRepository: UserRepository;
@@ -28,12 +29,14 @@ export class RegisterUser implements RegisterUserUseCase {
     }
 
     // check email is unique
-
     if (await this.userRepository.isEmailExist(user.email)) {
       throw new HTTP400Error("Email is already taken");
     }
 
-    // 5. Test
+    // hash password using bcrypt
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    if (!hashedPassword) throw new HTTP500Error("Hashing password failed");
+    user.password = hashedPassword;
 
     const result = await this.userRepository.register(user);
     return result;
