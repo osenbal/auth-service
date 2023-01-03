@@ -8,6 +8,9 @@ import { UserRepositoryImpl } from "./domain/repositories/user-repository";
 import { MongoClient } from "mongodb";
 import { NoSQLDatabaseWrapper } from "./data/interfaces/data-sources/NoSQL-database-wrapper";
 import { MongoDBUserDataSource } from "./data/data-sources/mongodb/mongodb-user-data-source";
+import HttpExceptionMiddleware from "./domain/middlewares/HttpExeption-midleware";
+import morgan from "morgan";
+import { logger, stream } from "./utils/logger";
 
 async function getMongoDS() {
   const client: MongoClient = await MongoClient.connect(
@@ -16,11 +19,13 @@ async function getMongoDS() {
       authSource: "admin",
     }
   );
+
   await client.connect();
   const db = client.db("USER_DB");
 
   const userDatabase: NoSQLDatabaseWrapper = {
     insertOne: (doc: any) => db.collection("users").insertOne(doc),
+    findOne: (query: object) => db.collection("users").findOne(query),
     find: function (query: object): Promise<any[]> {
       throw new Error("Function not implemented.");
     },
@@ -42,10 +47,15 @@ async function getMongoDS() {
     new RegisterUser(new UserRepositoryImpl(dataSource))
   );
 
+  // middlewares
+  server.use(morgan("combined", { stream }));
+
+  // routes
   server.use("/auth", userMiddleware);
+
+  server.use(HttpExceptionMiddleware);
+
   server.listen(process.env.PORT, () =>
-    console.log(
-      `Server is running on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`
-    )
+    logger.info(`Server running on port ${process.env.PORT}`)
   );
 })();

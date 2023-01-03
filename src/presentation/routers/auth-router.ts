@@ -1,16 +1,18 @@
-import express, { Request, Response } from "express";
-import { RegisterUserUseCase } from "../../domain/interfaces/use-cases/register-user";
+import express, { NextFunction, Request, Response } from "express";
+import { RegisterUserUseCase } from "@domain/interfaces/use-cases/register-user";
+import { ResponseObj } from "@utils/response";
 
 export default function AuthRouter(registerUser: RegisterUserUseCase) {
   const router = express.Router();
 
-  router.post("/", async (req: Request, res: Response) => {
+  router.post("/", async (req: Request, res: Response, next: NextFunction) => {
     try {
       await registerUser.execute(req.body);
-      res.statusCode = 201;
-      res.json({ message: "User registered successfully" });
+      res
+        .status(201)
+        .send(ResponseObj.created("User registered successfully", null));
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+      next(error);
     }
   });
 

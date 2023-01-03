@@ -3,7 +3,11 @@ node_modules
 # output build
 lib
 dist
+logs
 
 # output test
 test
 coverage
+
+# env
+.env
