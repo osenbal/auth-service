@@ -30,7 +30,7 @@ export class BaseError extends Error {
   }
 }
 
-class APIError extends BaseError {
+export class APIError extends BaseError {
   constructor(description: string = "Internal Server Error") {
     super("Server Error", HttpStatusCode.INTERNAL_SERVER, description, true);
   }
@@ -42,7 +42,7 @@ export class HTTP400Error extends BaseError {
   }
 }
 
-class HTTP404Error extends BaseError {
+export class HTTP404Error extends BaseError {
   constructor(description: string = "Not Found") {
     super("Not Found", HttpStatusCode.NOT_FOUND, description, true);
   }
