@@ -23,6 +23,6 @@ export default async function validateRefreshToken(
 
     next();
   } catch (error) {
-    next(new HTTP401Error("Invalid token"));
+    next(new HTTP401Error(error.message));
   }
 }
