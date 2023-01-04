@@ -103,3 +103,9 @@ export class HTTP403Error extends BaseError {
     super("Forbidden", HttpStatusCode.FORBIDDEN, description, true);
   }
 }
+
+export class HTTP498Error extends BaseError {
+  constructor(description: string = "Token Expired") {
+    super("Token Expired", 498, description, true);
+  }
+}

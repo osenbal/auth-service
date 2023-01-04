@@ -20,4 +20,8 @@ export class UserRepositoryImpl implements UserRepository {
   async getUserByEmail(email: string): Promise<User> {
     return await this.userDataSources.getUserByEmail(email);
   }
+
+  async getUserById(id: string): Promise<User> {
+    return await this.userDataSources.getUserById(id);
+  }
 }

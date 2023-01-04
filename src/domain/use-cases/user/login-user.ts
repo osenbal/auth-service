@@ -29,15 +29,15 @@ export class LoginUser implements LoginUserUseCase {
     // create token
     const tokenObj = {
       accessToken: await jwt.sign(
-        { id: userFound.id },
-        `${process.env.ACCESS_TOKEN_KEY!}`,
+        { id: userFound._id?.toString() },
+        `${process.env.ACCESS_TOKEN_KEY}`,
         {
           expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME,
         }
       ),
       refreshToken: await jwt.sign(
-        { id: userFound.id },
-        `${process.env.REFRESH_TOKEN_KEY!}`,
+        { id: userFound._id?.toString() },
+        `${process.env.REFRESH_TOKEN_KEY}`,
         {
           expiresIn: process.env.REFRESH_TOKEN_EXPIRE_TIME,
         }

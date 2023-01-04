@@ -4,4 +4,5 @@ export interface UserRepository {
   register(user: User): Promise<boolean>;
   isEmailExist(email: string): Promise<boolean>;
   getUserByEmail(email: string): Promise<User>;
+  getUserById(id: string): Promise<User>;
 }

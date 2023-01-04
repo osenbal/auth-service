@@ -2,16 +2,17 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import server from "./server";
+import morgan from "morgan";
 import AuthRouter from "./presentation/routers/auth-router";
-import { RegisterUser } from "./domain/use-cases/user/register-user";
-import { UserRepositoryImpl } from "./domain/repositories/user-repository";
 import { MongoClient } from "mongodb";
 import { NoSQLDatabaseWrapper } from "./data/interfaces/data-sources/NoSQL-database-wrapper";
 import { MongoDBUserDataSource } from "./data/data-sources/mongodb/mongodb-user-data-source";
-import HttpExceptionMiddleware from "./domain/middlewares/HttpExeption-midleware";
-import morgan from "morgan";
-import { logger, stream } from "./utils/logger";
+import { RegisterUser } from "./domain/use-cases/user/register-user";
 import { LoginUser } from "./domain/use-cases/user/login-user";
+import { RefreshToken } from "./domain/use-cases/user/refresh-token";
+import { UserRepositoryImpl } from "./domain/repositories/user-repository";
+import HttpExceptionMiddleware from "./domain/middlewares/HttpExeption-middleware";
+import { logger, stream } from "./utils/logger";
 
 async function getMongoDS() {
   const client: MongoClient = await MongoClient.connect(
@@ -46,7 +47,8 @@ async function getMongoDS() {
 
   const userMiddleware = AuthRouter(
     new RegisterUser(new UserRepositoryImpl(dataSource)),
-    new LoginUser(new UserRepositoryImpl(dataSource))
+    new LoginUser(new UserRepositoryImpl(dataSource)),
+    new RefreshToken()
   );
 
   // middlewares

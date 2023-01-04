@@ -23,4 +23,9 @@ export class MongoDBUserDataSource implements UserDataSource {
     const result = await this.db.findOne({ email });
     return result;
   }
+
+  async getUserById(id: string): Promise<User> {
+    const result = await this.db.findOne({ _id: id });
+    return result;
+  }
 }
