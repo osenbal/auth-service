@@ -1,10 +1,6 @@
-
 # Auth Service
 
 Service for authentication single user without role and permissions
-
-
-
 
 ## Environment Variables
 
@@ -21,13 +17,13 @@ To run this project, you will need to add the following environment variables to
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/osenbal/auth-service.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd auth-service
 ```
 
 Install dependencies
@@ -42,7 +38,6 @@ Start the server
   npm run dev:serve
 ```
 
-
 ## API Reference
 
 #### Register New User
@@ -51,12 +46,12 @@ Start the server
   POST /auth/register
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `email` | `string` | **Required**. Your email |
-| `password` | `string` | **Required**. Your Password (8 character) |
-| `firstName` | `string` | **Required**.  |
-| `surname` | `string` | **Required**.  |
+| Parameter   | Type     | Description                               |
+| :---------- | :------- | :---------------------------------------- |
+| `email`     | `string` | **Required**. Your email                  |
+| `password`  | `string` | **Required**. Your Password (8 character) |
+| `firstName` | `string` | **Required**.                             |
+| `surname`   | `string` | **Required**.                             |
 
 ###### put to request body
 
@@ -66,10 +61,10 @@ Start the server
   POST /auth/login
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `email`      | `string` | **Required** |
-| `password`      | `string` | **Required** |
+| Parameter  | Type     | Description  |
+| :--------- | :------- | :----------- |
+| `email`    | `string` | **Required** |
+| `password` | `string` | **Required** |
 
 ###### put to request body
 
@@ -79,14 +74,12 @@ Start the server
   POST /auth/refresh
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `authorization`      | `string` | **Required** refresh token|
+| Parameter       | Type     | Description                |
+| :-------------- | :------- | :------------------------- |
+| `authorization` | `string` | **Required** refresh token |
 
 ###### put to request header bearer token
-
 
 ## Authors
 
 - [@osenbal](https://www.github.com/osenbal)
-
