@@ -1,3 +1,3 @@
 export interface RefreshTokenUseCase {
-  execute(token: string): Promise<any>;
+  execute(userId: string): Promise<any>;
 }

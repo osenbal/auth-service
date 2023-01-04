@@ -10,6 +10,11 @@ export class MongoDBUserDataSource implements UserDataSource {
   }
 
   async register(user: User): Promise<boolean> {
+    // add time stamp
+    user.createdAt = new Date();
+    user.updatedAt = new Date();
+    user.deletedAt = null;
+
     const result = await this.db.insertOne(user);
     return result !== null;
   }

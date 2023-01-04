@@ -2,9 +2,8 @@ import User from "@/domain/entities/user";
 import { LoginUserUseCase } from "@/domain/interfaces/use-cases/login-user";
 import { UserRepository } from "@/domain/interfaces/repositories/user-repository";
 import { HTTP403Error, HTTP404Error } from "@/domain/exeptions/error-exeption";
+import { JwtService } from "../jwt/jwt-services";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { json } from "stream/consumers";
 
 export class LoginUser implements LoginUserUseCase {
   userRepository: UserRepository;
@@ -24,24 +23,15 @@ export class LoginUser implements LoginUserUseCase {
     );
     if (!isPasswordValid) throw new HTTP403Error("Invalid password");
 
-    console.log("USER LOGGED IN: ", userFound);
-
     // create token
+    const jwtService = new JwtService();
     const tokenObj = {
-      accessToken: await jwt.sign(
-        { id: userFound._id?.toString() },
-        `${process.env.ACCESS_TOKEN_KEY}`,
-        {
-          expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME,
-        }
-      ),
-      refreshToken: await jwt.sign(
-        { id: userFound._id?.toString() },
-        `${process.env.REFRESH_TOKEN_KEY}`,
-        {
-          expiresIn: process.env.REFRESH_TOKEN_EXPIRE_TIME,
-        }
-      ),
+      accessToken: jwtService.createAccessToken({
+        id: userFound._id?.toString()!,
+      }),
+      refreshToken: jwtService.createRefreshToken({
+        id: userFound._id?.toString()!,
+      }),
     };
 
     return tokenObj;

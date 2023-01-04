@@ -1,16 +1,11 @@
 import { RefreshTokenUseCase } from "@domain/interfaces/use-cases/refresh-token";
-import { sign } from "jsonwebtoken";
+import { JwtService } from "../jwt/jwt-services";
 
 export class RefreshToken implements RefreshTokenUseCase {
   async execute(userId: string): Promise<any> {
     // generate new token
-    const accessToken = await sign(
-      { id: userId },
-      `${process.env.ACCESS_TOKEN_KEY!}`,
-      {
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME,
-      }
-    );
+    const jwtService = new JwtService();
+    const accessToken = jwtService.createAccessToken({ id: userId });
     return { accessToken };
   }
 }
