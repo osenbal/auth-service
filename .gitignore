@@ -6,7 +6,6 @@ dist
 logs
 
 # output test
-test
 coverage
 
 # env
