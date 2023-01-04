@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
-import { RegisterUserUseCase } from "@domain/interfaces/use-cases/register-user";
-import { RefreshTokenUseCase } from "@domain/interfaces/use-cases/refresh-token";
-import { LoginUserUseCase } from "@domain/interfaces/use-cases/login-user";
-import validateRefreshToken from "@domain/middlewares/validateRefreshToken-middleware";
+import { RegisterUserUseCase } from "@domain/interfaces/use-cases/user/register-user";
+import { RefreshTokenUseCase } from "@domain/interfaces/use-cases/user/refresh-token";
+import { LoginUserUseCase } from "@domain/interfaces/use-cases/user/login-user";
+import validateRefreshToken from "../../domain/middlewares/validateRefreshToken-middleware";
 import { ResponseObj } from "../../utils/response";
 
 export default function AuthRouter(

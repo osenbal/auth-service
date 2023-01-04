@@ -1,4 +1,3 @@
-import User from "@domain/entities/user";
 export interface NoSQLDatabaseWrapper {
   find(query: object): Promise<any[]>;
   findOne(query: object): Promise<any>;

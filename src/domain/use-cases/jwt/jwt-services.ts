@@ -1,7 +1,8 @@
 import JwtPayload from "@domain/entities/jwt-payload";
+import { JwtServiceUseCase } from "@/domain/interfaces/use-cases/jwt/jwt-services";
 import jwt from "jsonwebtoken";
 
-export class JwtService {
+export class JwtService implements JwtServiceUseCase {
   private readonly accessTokenKey: string;
   private readonly refreshTokenKey: string;
   private readonly accessTokenExpireTime: string;

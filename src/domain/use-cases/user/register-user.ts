@@ -1,5 +1,5 @@
 import { UserRepository } from "@domain/interfaces/repositories/user-repository";
-import { RegisterUserUseCase } from "@domain/interfaces/use-cases/register-user";
+import { RegisterUserUseCase } from "@domain/interfaces/use-cases/user/register-user";
 import { HTTP400Error, HTTP500Error } from "../../exeptions/error-exeption";
 import User, {
   checkRequiredInput,

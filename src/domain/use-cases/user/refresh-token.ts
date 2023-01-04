@@ -1,4 +1,4 @@
-import { RefreshTokenUseCase } from "@domain/interfaces/use-cases/refresh-token";
+import { RefreshTokenUseCase } from "@domain/interfaces/use-cases/user/refresh-token";
 import { JwtService } from "../jwt/jwt-services";
 
 export class RefreshToken implements RefreshTokenUseCase {

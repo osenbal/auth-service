@@ -1,6 +1,6 @@
-import User from "@/domain/entities/user";
-import { LoginUserUseCase } from "@/domain/interfaces/use-cases/login-user";
-import { UserRepository } from "@/domain/interfaces/repositories/user-repository";
+import User from "@domain/entities/user";
+import { LoginUserUseCase } from "@domain/interfaces/use-cases/user/login-user";
+import { UserRepository } from "@domain/interfaces/repositories/user-repository";
 import { HTTP403Error, HTTP404Error } from "@/domain/exeptions/error-exeption";
 import { JwtService } from "../jwt/jwt-services";
 import bcrypt from "bcrypt";
